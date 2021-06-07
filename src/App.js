@@ -15,7 +15,7 @@ class App extends Component {
   componentDidMount(){
     let all = localStorage.getItem("items") !== null ? JSON.parse(localStorage.getItem("items")) : [];
     this.setState({items : all})
-    
+
   }
 
   componentDidUpdate(){
@@ -26,7 +26,7 @@ class App extends Component {
   onEditing = () => {
     this.setState({isEditing : true});
    }
-  onChange = e => { 
+  onChange = e => {
     this.setState({input : e.target.value})
   }
   onSubmit = e => {
@@ -51,7 +51,7 @@ class App extends Component {
    }
 
 
-  onDelete = (id) => { 
+  onDelete = (id) => {
     let filtered = this.state.items.filter(item => {
       return item.id != id;
     })
@@ -67,10 +67,12 @@ class App extends Component {
 
   render() {
     return (
+      <div>
+        <h1 id="heading">Make Your To Do List</h1>
       <form id="todo-list" onSubmit={this.onSubmit}>
         <div class="progress">
           <div class="progress-bar" role="progressbar" style={{width: this.state.progress + "%"}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{this.state.progress + "%"}</div>
-        </div> 
+        </div>
 
         { this.state.items.length > 0 ?
         this.state.items.map((item,i) => {
@@ -83,17 +85,18 @@ class App extends Component {
 
             <span className="delete-item" title="remove" onClick={() => this.onDelete(item.id)}>
               <i className="fa fa-times-circle"></i>
-            </span> 
+            </span>
           </span>
           )
         }) : <p></p>
         }
 
         {this.state.isEditing ? <span className="todo-wrap" ><input onChange={this.onChange} value={this.state.input}/></span> : ""}
-        
+
         <div id="add-todo" onClick={this.onEditing}><i className="fa fa-plus"></i> &nbsp; Add an Item</div>
 
       </form>
+      </div>
     );
   }
 }
